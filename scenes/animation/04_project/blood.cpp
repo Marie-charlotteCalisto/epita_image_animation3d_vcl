@@ -6,7 +6,7 @@ void Blood::setup_data(std::map<std::string, GLuint>& shaders)
 {
     sphere = vcl::mesh_drawable(vcl::mesh_primitive_sphere(0.05f));
     sphere.shader = shaders["mesh"];
-    sphere.uniform.color = {1, 0, 0};
+    sphere.uniform.color = {0.8, 0.7, 0.2};
 }
 
 
