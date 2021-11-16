@@ -5,6 +5,7 @@
 #include "utils.hpp"
 
 #ifdef SCENE_PROJECT
+
 class Ant{
     public:
         Ant();
@@ -15,6 +16,7 @@ class Ant{
         void die();
 
     private:
+        float random;
 
         Blood ant_blood;
         vcl::hierarchy_mesh_drawable hierarchy;

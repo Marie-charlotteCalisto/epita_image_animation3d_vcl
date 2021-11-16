@@ -4,8 +4,7 @@
 
 using namespace vcl;
 
-Ant::Ant()//std::map<std::string, GLuint>& shaders)//std::map<std::string, GLuint>& shaders) {
-{
+Ant::Ant(){
     ant_blood = Blood();
 }
 
@@ -178,7 +177,7 @@ void Ant::setup_data(std::map<std::string, GLuint>& shaders)
     // Set the same shader for all the elements
     hierarchy.set_shader_for_all_elements(shaders["mesh"]);
 
-
+    random = -9.5 + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(9.5+9.5)));
 
     // Initialize helper structure to display the hierarchy skeleton
     hierarchy_visual_debug.init(shaders["segment_im"], shaders["mesh"]);
@@ -223,7 +222,11 @@ void Ant::update_dead()
     const size_t N = hierarchy.elements.size();
     for(size_t k=0; k<N; ++k)
         hierarchy.elements[k].element.uniform.transform.scaling_axis = {1, 0.1, 1};
+   for(size_t k=0; k<N; ++k)
+        hierarchy.elements[k].element.uniform.transform.scaling_axis = {1, 1, 1};
+
 }
+
 
 void Ant::update(const float t)
 {
@@ -233,6 +236,12 @@ void Ant::update(const float t)
         ant_blood.spawn(hierarchy["body"].transform.translation, t);
         return;
     }
+
+
+    auto t_rand = fmod(t+fabs(random), 1.0);
+    auto move = vcl::vec3(0,0,(t_rand*20 - 10));
+    hierarchy["body"].transform.translation = vcl::vec3(random, 0, 0) + move;
+
     //neck rotate on the y axis
     mat3 const R_head = rotation_from_axis_angle_mat3({0,1,0}, std::sin(2*3.14f*(t-0.4f))/5 );
     hierarchy["neck"].transform.rotation = R_head;
@@ -301,18 +310,11 @@ void Ant::update(const float t)
 
 void Ant::display(gui_scene_structure gui_scene, scene_structure& scene, std::map<std::string, GLuint>& shaders)
 {
-    if(gui_scene.surface) // The default display
-        draw(hierarchy, scene.camera);
 
-    if(gui_scene.wireframe) // Display the hierarchy as wireframe
-        draw(hierarchy, scene.camera, shaders["wireframe"]);
-
-    if(gui_scene.skeleton) // Display the skeleton of the hierarchy (debug)
-        hierarchy_visual_debug.draw(hierarchy, scene.camera);
-
-
+    draw(hierarchy, scene.camera);
     if (isDead)
         ant_blood.display(scene);
+
 }
 #endif
 

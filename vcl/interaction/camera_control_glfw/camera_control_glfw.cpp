@@ -9,6 +9,7 @@ enum class camera_action_state {none, translation, rotation, scale, translation_
 
 void camera_control_glfw::update_mouse_move(camera_scene& camera, GLFWwindow* window, float x1, float y1)
 {
+    /*
     assert(window!=nullptr);
 
     // Get type of click (left, right), is CTRL pressed
@@ -89,6 +90,7 @@ void camera_control_glfw::update_mouse_move(camera_scene& camera, GLFWwindow* wi
     // Update previous click position
     x0 = x1;
     y0 = y1;
+    */
 
 }
 

@@ -16,7 +16,9 @@ struct scene_model : scene_base
 
     void set_gui();
 
-    Ant my_ant;
+    void create_ants(std::map<std::string,GLuint>& shaders);
+    std::vector<Ant> my_ants;
+    size_t nb_ants = 20;
 
     vcl::mesh_drawable ground;
     gui_scene_structure gui_scene;
