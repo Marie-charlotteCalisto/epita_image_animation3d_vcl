@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef SCENE_PROJECT
 struct gui_scene_structure
 {
     bool wireframe   = false;
@@ -7,3 +8,4 @@ struct gui_scene_structure
     bool skeleton    = false;
 };
 
+#endif

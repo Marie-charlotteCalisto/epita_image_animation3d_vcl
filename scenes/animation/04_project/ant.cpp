@@ -5,10 +5,15 @@
 using namespace vcl;
 
 Ant::Ant()//std::map<std::string, GLuint>& shaders)//std::map<std::string, GLuint>& shaders) {
-{}
-
-void Ant::make_hierarchy(std::map<std::string, GLuint>& shaders)
 {
+    ant_blood = Blood();
+}
+
+void Ant::setup_data(std::map<std::string, GLuint>& shaders)
+{
+
+    ant_blood.setup_data(shaders);
+
     const float radius_head = 0.20f;
     const float radius_neck = 0.15f;
     const float radius_body = 0.25f;
@@ -180,9 +185,54 @@ void Ant::make_hierarchy(std::map<std::string, GLuint>& shaders)
 
 }
 
+bool Ant::isStrucked(scene_structure& scene, GLFWwindow* window, int button, int action, int mods)
+{
+    // Cursor coordinates
+    const vec2 cursor = glfw_cursor_coordinates_window(window);
+
+    // Check that the mouse is clicked (drag and drop)
+    const bool mouse_click_left  = glfw_mouse_pressed_left(window);
+
+    // Check if shift key is pressed
+    if(mouse_click_left)
+    {
+        // Create the 3D ray passing by the selected point on the screen
+        const ray r = picking_ray(scene.camera, cursor);
+
+        // Check if this ray intersects a position (represented by a sphere)
+        const vec3 c = hierarchy["body"].transform.translation;
+        const picking_info info = ray_intersect_sphere(r, c, 1);
+
+        if( info.picking_valid ) // the ray intersects a sphere
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+void Ant::die()
+{
+    isDead = true;
+}
+
+void Ant::update_dead()
+{
+    const size_t N = hierarchy.elements.size();
+    for(size_t k=0; k<N; ++k)
+        hierarchy.elements[k].element.uniform.transform.scaling_axis = {1, 0.1, 1};
+}
 
 void Ant::update(const float t)
 {
+    if (isDead)
+    {
+        update_dead();
+        ant_blood.spawn(hierarchy["body"].transform.translation, t);
+        return;
+    }
     //neck rotate on the y axis
     mat3 const R_head = rotation_from_axis_angle_mat3({0,1,0}, std::sin(2*3.14f*(t-0.4f))/5 );
     hierarchy["neck"].transform.rotation = R_head;
@@ -259,6 +309,10 @@ void Ant::display(gui_scene_structure gui_scene, scene_structure& scene, std::ma
 
     if(gui_scene.skeleton) // Display the skeleton of the hierarchy (debug)
         hierarchy_visual_debug.draw(hierarchy, scene.camera);
+
+
+    if (isDead)
+        ant_blood.display(scene);
 }
 #endif
 
