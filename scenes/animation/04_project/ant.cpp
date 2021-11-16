@@ -222,9 +222,6 @@ void Ant::update_dead()
     const size_t N = hierarchy.elements.size();
     for(size_t k=0; k<N; ++k)
         hierarchy.elements[k].element.uniform.transform.scaling_axis = {1, 0.1, 1};
-   for(size_t k=0; k<N; ++k)
-        hierarchy.elements[k].element.uniform.transform.scaling_axis = {1, 1, 1};
-
 }
 
 
