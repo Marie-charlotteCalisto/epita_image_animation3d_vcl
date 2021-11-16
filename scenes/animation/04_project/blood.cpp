@@ -45,16 +45,34 @@ void Blood::spawn(vcl::vec3 p, const float t)
 
     for(int i = 0; i < particles.size(); i++)
     {
-        float impulse = 3.0f;
-        particles[i].f = vcl::vec3(0, -9.81f + impulse, 0);
+        particles[i].f = vcl::vec3(0, -9.81f, 0);
     }
 
     for(int i = 0; i < particles.size(); i++)
     {
-        particles[i].p = particles[i].p + dt * particles[i].v;
         particles[i].v = (1-0.9f*dt) * particles[i].v + dt * particles[i].f;
+        particles[i].p = particles[i].p + dt * particles[i].v;
     }
 
+    // collision between spheres
+    for (size_t i = 0; i < particles.size(); ++i) {
+        particle& part1 = particles[i];
+        for (size_t j = 0; j < particles.size(); ++j) {
+            if (j == i)
+                continue;
+
+            particle& part2 = particles[j];
+
+            auto detection = norm(part1.p - part2.p);
+            if (detection < part1.r + part2.r)
+            {
+                auto u = (part1.p - part2.p) / detection;
+
+                part1.v = part1.v + dot((part2.v - part1.v), u)*u;
+                part2.v = part2.v - dot((part2.v - part1.v), u)*u;
+            }
+        }
+    }
 
     //collition with ground
     for (size_t i = 0; i < particles.size(); ++i) {
