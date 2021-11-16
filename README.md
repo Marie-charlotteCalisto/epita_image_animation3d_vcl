@@ -1,3 +1,25 @@
+# Project
+
+the scene Project is a game were you kill ants
+it is arleady set and you just need to comile and run the code
+
+to compile:
+```
+mdkir build
+cd build
+make
+```
+
+to run
+```
+./pgm
+```
+
+
+
+
+
+
 # VCL
 
 - [Introduction](#Introduction)
