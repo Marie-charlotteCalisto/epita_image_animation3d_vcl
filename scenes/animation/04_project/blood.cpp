@@ -27,7 +27,8 @@ void Blood::create_particles(vcl::vec3 p, int max_particles)
 
         // Initial speed
         const float theta = vcl::rand_interval(0, 2*3.14f);
-        new_particle.v = vcl::vec3( 2*std::cos(theta), 5.0f, 2*std::sin(theta));
+        const float random = vcl::rand_interval(0, 5);
+        new_particle.v = vcl::vec3( 2*std::cos(theta), random, 2*std::sin(theta));
 
         particles.push_back(new_particle);
 

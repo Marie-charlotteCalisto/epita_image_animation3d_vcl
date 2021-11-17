@@ -189,7 +189,7 @@ bool Ant::isStrucked(scene_structure& scene, GLFWwindow* window, int button, int
     // Cursor coordinates
     const vec2 cursor = glfw_cursor_coordinates_window(window);
 
-    // Check that the mouse is clicked (drag and drop)
+    // Check that the mouse is clicked
     const bool mouse_click_left  = glfw_mouse_pressed_left(window);
 
     // Check if shift key is pressed
