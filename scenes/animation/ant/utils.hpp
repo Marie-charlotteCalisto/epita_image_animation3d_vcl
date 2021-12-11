@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef SCENE_PROJECT
+#ifdef SCENE_ANT
 struct gui_scene_structure
 {
     bool restart = false;

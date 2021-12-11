@@ -1,6 +1,6 @@
 #include "blood.hpp"
 
-#ifdef SCENE_PROJECT
+#ifdef SCENE_ANT
 
 void Blood::setup_data(std::map<std::string, GLuint>& shaders)
 {

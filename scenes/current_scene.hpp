@@ -12,4 +12,5 @@
 // #define SCENE_CLOTH
 // #define SCENE_SKINNING
 
-#define SCENE_PROJECT
+#define SCENE_ANT
+//#define SCENE_STABLE_FLUID

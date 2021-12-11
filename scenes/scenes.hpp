@@ -1,4 +1,3 @@
-
 #pragma once
 
 // All scenes must be included in this file
@@ -12,4 +11,5 @@
 #include "scenes/animation/02_simulation/example_mass_spring.hpp"
 #include "scenes/animation/02_simulation/cloth.hpp"
 #include "scenes/animation/03_skinning/skinning.hpp"
-#include "scenes/animation/04_project/project.hpp"
+#include "scenes/animation/ant/project.hpp"
+#include "scenes/animation/fluid/fluid.hpp"

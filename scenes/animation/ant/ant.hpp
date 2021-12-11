@@ -4,7 +4,7 @@
 #include "blood.hpp"
 #include "utils.hpp"
 
-#ifdef SCENE_PROJECT
+#ifdef SCENE_ANT
 
 class Ant{
     public:

@@ -1,6 +1,6 @@
 #include "ant.hpp"
 
-#ifdef SCENE_PROJECT
+#ifdef SCENE_ANT
 
 using namespace vcl;
 

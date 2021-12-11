@@ -2,7 +2,7 @@
 
 #include "main/scene_base/base.hpp"
 
-#ifdef SCENE_PROJECT
+#ifdef SCENE_ANT
 
 struct particle{
     vcl::vec3 p;
